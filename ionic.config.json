@@ -1,0 +1,7 @@
+{
+  "name": "pairIntegers",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
