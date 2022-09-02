@@ -1,20 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Mach Eight</ion-card-subtitle>
+        <ion-card-title>Pairs finder</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+          Type one by one, the numbers you want to add to the array of integers to be evaluated in the first field. Type the number to find in the second field.
+      </ion-card-content>
+
+      <ion-card-content>
+        <form [formGroup]="pairFinderForm" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label>Type new number:</ion-label>
+            <ion-input type="number" placeholder="Here" formControlName="newNumber"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Type value to find:</ion-label>
+            <ion-input type="number" placeholder="Here" formControlName="valueFind"></ion-input>
+          </ion-item>
+          <ion-button [disabled]="pairFinderForm.value.newNumber == null" type="button" expand="block" fill="outline" (click)="addNew()">Add number</ion-button>
+          <ion-button *ngIf="pairFinderForm.value.valueFind" [disabled]="numbersArray.length < 2"  type="submit" expand="block" fill="outline">Find pairs</ion-button>
+          <ion-chip *ngFor="let number of numbersArray">
+            <ion-label>{{number}}</ion-label>
+            <ion-icon name="close" (click)="removeNumber(number)"></ion-icon>
+          </ion-chip>
+        </form>
+      </ion-card-content>
+
+    </ion-card>
+    <ion-card *ngIf="sumNumbers.length">
+      <ion-card-header>
+        <ion-card-subtitle>Pairs of integers from the list that
+          sum a given value</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-chip *ngFor="let item of sumNumbers">
+            <ion-icon name="checkmark-outline"></ion-icon>
+            <ion-label>{{item}}</ion-label>
+          </ion-chip>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
